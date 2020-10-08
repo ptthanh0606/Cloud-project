@@ -1,0 +1,28 @@
+.user-detail-form-container {
+  .seperator {
+    width: 100%;
+    background-color: #e5eaee;
+  }
+
+  .button-profile {
+    font-weight: 500;
+    border-radius: 6px !important;
+    border: none;
+    font-size: 14px;
+    padding: 9px 20px;
+  }
+
+  .update {
+    background-color: #789dfe;
+    color: white;
+  }
+
+  .input-field {
+    border: none;
+    background-color: #f3f6f9;
+    &::placeholder {
+      font-weight: 400;
+      color: #B5B5C3;
+    }
+  }
+}

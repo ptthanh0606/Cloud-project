@@ -1,0 +1,30 @@
+.login-form-container {
+  .input-field {
+    background-color: white;
+    border: none;
+  }
+
+  .button {
+    border-radius: 6px;
+    border: none;
+    font-size: 15px;
+  }
+
+  .sign-in-google {
+    background-color: rgba($color: #6993ff, $alpha: 0.2);
+    color: #6993ff;
+    font-weight: 600;
+    padding: 16px 20px;
+  }
+
+  .sign-in {
+    background-color: #6993ff;
+    color: white;
+    font-weight: 400;
+    padding: 10px 27px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+}
