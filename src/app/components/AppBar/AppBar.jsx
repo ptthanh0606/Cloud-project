@@ -1,31 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Box, Heading, Button, TextInput } from "grommet";
 import { Search } from "grommet-icons";
+import { Route, useHistory, useLocation } from "react-router-dom";
+import { useGoogleLogout } from "react-google-login";
 
 import FunctionCard from "./FunctionCard/FunctionCard";
 import "./AppBar.scss";
-import { Route, useHistory } from "react-router-dom";
+import { useState } from "react";
 
-const AppBar = (props) => {
-  let history = useHistory();
+const CLIENT_ID =
+  "700550014345-n104gnlrusrhn5rlj8edg8ugdsvtm0b5.apps.googleusercontent.com";
+
+const AppBar = ({ isLoginProp }) => {
   const [appBarClassName, setAppBarClassName] = useState("app-bar-container");
 
-  const handleRouteToSignInPage = () => {
-    history.push("login");
-  };
+  const history = useHistory();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (history.location.pathname.includes("login") || history.location.pathname.includes("create-account")) {
+    if (pathname === "/login") {
       setAppBarClassName("app-bar-container hidden");
     } else setAppBarClassName("app-bar-container");
+  }, [pathname]);
 
-    history.listen((location) => {
-      console.log(location);
-      if (location.pathname.includes("login") || history.location.pathname.includes("create-account")) {
-        setAppBarClassName("app-bar-container hidden");
-      } else setAppBarClassName("app-bar-container");
-    });
-  }, [history]);
+  const onLogoutSuccess = () => {
+    alert("Sign out completed!");
+    history.push("/login");
+  };
+
+  const onLogoutFailure = () => {
+    console.log("Sign out failed!");
+  };
+
+  const { signOut } = useGoogleLogout({
+    clientId: CLIENT_ID,
+    onLogoutSuccess: onLogoutSuccess,
+    onFailure: onLogoutFailure,
+  });
+
+  const handleRouteToSignInPage = () => {
+    history.push("/login");
+  };
 
   return (
     <Box className={appBarClassName}>
@@ -38,7 +53,6 @@ const AppBar = (props) => {
         wrap
         pad={{ left: "xlarge", right: "xlarge", vertical: "small" }}
         style={{ zIndex: "1" }}
-        {...props}
       >
         <Box
           tag="div"
@@ -56,13 +70,23 @@ const AppBar = (props) => {
             className="search-box"
           />
         </Box>
-        <Button
-          primary
-          label="Sign in"
-          size="medium"
-          className="button-create-account"
-          onClick={handleRouteToSignInPage}
-        />
+        {isLoginProp ? (
+          <Button
+            primary
+            label="Log out"
+            size="medium"
+            className="button-create-account"
+            onClick={signOut}
+          />
+        ) : (
+          <Button
+            primary
+            label="Sign in"
+            size="medium"
+            className="button-create-account"
+            onClick={handleRouteToSignInPage}
+          />
+        )}
       </Box>
       <Box
         tag="header"
@@ -72,29 +96,31 @@ const AppBar = (props) => {
         pad={{ left: "xlarge", right: "xlarge", vertical: "medium" }}
       >
         <Route
-          path="/"
+          path={`/`}
           exact
           children={({ match }) => (
             <FunctionCard
               title="All jobs"
               subtitle="Posted by organizations"
-              to="/"
+              to={`/`}
               selected={!!match}
             />
           )}
         />
-        <Route
-          path="/manage-jobs"
-          exact
-          children={({ match }) => (
-            <FunctionCard
-              title="Manage posts"
-              subtitle="View and update your posts"
-              to="/manage-jobs"
-              selected={!!match}
-            />
-          )}
-        />
+        {isLoginProp && (
+          <Route
+            path={`/manage-jobs`}
+            exact
+            children={({ match }) => (
+              <FunctionCard
+                title="Manage posts"
+                subtitle="View and update your posts"
+                to={`/manage-jobs`}
+                selected={!!match}
+              />
+            )}
+          />
+        )}
       </Box>
     </Box>
   );

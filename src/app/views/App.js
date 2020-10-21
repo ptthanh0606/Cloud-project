@@ -1,78 +1,65 @@
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Grommet } from "grommet";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { checkLogin } from "./AppActions";
+import Cookies from "js-cookie";
 
-import AppBar from "../components/AppBar/AppBar";
-import LoadingPage from "./LoadingPage/LoadingPage";
 import "./App.scss";
-
-const AllJobPage = lazy(() => import("../views/AllJobsPage/AllJobsPage"));
-const CreateAccountPage = lazy(() =>
-  import("../views/CreateAccountPage/CreateAccountPage")
-);
-const JobDetailPage = lazy(() =>
-  import("../views/JobDetailPage/JobDetailPage")
-);
-const LoginPage = lazy(() => import("../views/LoginPage/LoginPage"));
-const ManageJobPage = lazy(() =>
-  import("../views/ManageJobPage/ManageJobPage")
-);
-const UserDetailPage = lazy(() =>
-  import("../views/UserDetailPage/UserDetailPage")
-);
-
-const theme = {
-  global: {
-    colors: {
-      brand: "#6993FF",
-      userCircle: "#8950FC",
-      primaryText: "#464E5F",
-      secondaryText: "#A7A8BB",
-    },
-    font: {
-      family: "Poppins",
-      size: "14px",
-    },
-  },
-  card: {
-    container: { round: "xsmall", elevation: "small" },
-  },
-};
+import LoadingPage from "./LoadingPage/LoadingPage";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isLoginAtom, UserObjAtom } from "../atoms";
+const PageWithAppBar = lazy(() => import("./PageWithAppBar/PageWithAppBar"));
+const LoginPage = lazy(() => import("./LoginPage/LoginPage"));
 
 const App = () => {
-  // const [joblist] = useState([
-  //   {
-  //     jobtitle: "Intern front-end developer",
-  //     jobdesc:
-  //       "Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure",
-  //     salary: "820",
-  //   },
-  // ]);
+  const setUserObj = useSetRecoilState(UserObjAtom);
+  const setLoginState = useSetRecoilState(isLoginAtom);
+  const isLogin = useRecoilValue(isLoginAtom);
+  const history = useHistory();
+
+  useEffect(() => {
+    checkLogin(Cookies.get("id_token"))
+      .then((response) => {
+        console.log(response);
+        if (response) {
+          setUserObj(response);
+          setLoginState(true);
+        } else {
+          setLoginState(false);
+        }
+      })
+      .catch((error) => {
+        setLoginState(false);
+      });
+  }, [setLoginState, setUserObj]);
+
+  useEffect(() => {
+    history.listen(() => {
+      checkLogin(Cookies.get("id_token"))
+        .then((response) => {
+          console.log(response);
+          if (response) {
+            setUserObj(response);
+            setLoginState(true);
+          } else {
+            setLoginState(false);
+          }
+        })
+        .catch((error) => {
+          setLoginState(false);
+        });
+    });
+  }, [setUserObj, history, setLoginState]);
 
   return (
-    <Router>
-      <Grommet theme={theme}>
-        <AppBar />
-        <Switch>
-          <Suspense fallback={LoadingPage}>
-            <Route path="/" exact render={() => <AllJobPage />} />
-            <Route
-              path="/create-account"
-              exact
-              render={() => <CreateAccountPage />}
-            />
-            <Route path="/job" exact render={() => <JobDetailPage />} />
-            <Route path="/login" exact render={() => <LoginPage />} />
-            <Route path="/manage-jobs" exact render={() => <ManageJobPage />} />
-            <Route
-              path="/user-detail"
-              exact
-              render={() => <UserDetailPage />}
-            />
-          </Suspense>
-        </Switch>
-      </Grommet>
-    </Router>
+    <Switch>
+      <Suspense fallback={LoadingPage}>
+        <Route
+          path="/login"
+          render={() => (isLogin ? <Redirect to="/" /> : <LoginPage />)}
+        />
+        <Route path="/" render={() => <PageWithAppBar isLoginProp={isLogin}/>} />
+      </Suspense>
+    </Switch>
   );
 };
 

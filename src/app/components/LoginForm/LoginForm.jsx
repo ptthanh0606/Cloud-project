@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import "./LoginForm.scss";
 
-const LoginForm = () => {
+const LoginForm = ({ onSigninWithGoogle }) => {
   const history = useHistory();
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -20,15 +20,7 @@ const LoginForm = () => {
     setLoadingState(true);
     setTimeout(() => {
       history.push("/");
-    }, 5000);
-  };
-
-  const handleRouteToCreateAccount = () => {
-    setLoadText("");
-    setLoadingState(true);
-    setTimeout(() => {
-      history.push("create-account");
-    }, 1000);
+    }, 4000);
   };
 
   return (
@@ -48,8 +40,8 @@ const LoginForm = () => {
           </Heading>
           <Text color="secondaryText" size="small">
             Don't have an account?{" "}
-            <Anchor className="help-text" onClick={handleRouteToCreateAccount}>
-              Create an account
+            <Anchor className="help-text" onClick={onSigninWithGoogle}>
+              Create an account with Google
             </Anchor>
           </Text>
         </Box>
@@ -85,6 +77,7 @@ const LoginForm = () => {
           <Button
             className="button sign-in-google"
             margin={{ bottom: "small" }}
+            onClick={onSigninWithGoogle}
           >
             <Box direction="row" gap="small" align="center">
               <Google color="plain" />

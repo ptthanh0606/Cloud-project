@@ -19,7 +19,7 @@ const UserCard = ({ orgname, usermail, userdesc }) => {
   const history = useHistory();
 
   const handleViewAccountDetail = () => {
-    history.push("/user-detail");
+    history.push("/user/user-detail");
   };
 
   return (

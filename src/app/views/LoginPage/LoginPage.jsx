@@ -1,12 +1,38 @@
-import { Anchor, Box, Heading, Image, Text } from "grommet";
 import React from "react";
+import { Anchor, Box, Heading, Image, Text } from "grommet";
 import { useHistory } from "react-router-dom";
+import { useGoogleLogin } from "react-google-login";
+import { useSetRecoilState } from "recoil";
+import { OAuthAtom } from "../../atoms";
+import Cookies from "js-cookie";
 
 import LoginForm from "../../components/LoginForm/LoginForm";
 import "./LoginPage.scss";
 
+const CLIENT_ID =
+  "700550014345-n104gnlrusrhn5rlj8edg8ugdsvtm0b5.apps.googleusercontent.com";
+
 const LoginPage = () => {
   const history = useHistory();
+  const setOAuthAtom = useSetRecoilState(OAuthAtom);
+
+  const onSuccess = (res) => {
+    console.log(res.tokenObj.id_token);
+    Cookies.remove("id_token");
+    Cookies.set("id_token", res.tokenObj.id_token);
+    setOAuthAtom(res);
+    history.push("/");
+  };
+
+  const onFailure = (res) => {
+    console.log(res);
+  };
+
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId: CLIENT_ID,
+  });
 
   return (
     <Box direction="row" className="login-page-container">
@@ -38,7 +64,7 @@ const LoginPage = () => {
             Having issues? <span className="help-text">Get Help</span>
           </Text>
         </Box>
-        <LoginForm />
+        <LoginForm onSigninWithGoogle={signIn} />
       </Box>
     </Box>
   );

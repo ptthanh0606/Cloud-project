@@ -17,7 +17,7 @@ const JobCard = ({ uploaddate, jobtitle, jobdesc, price }) => {
   const history = useHistory();
 
   const handleJobCardClick = () => {
-    history.push("job");
+    history.push(`/job/detail`);
   };
 
   return (

@@ -2,7 +2,13 @@ import { Box, Card, CardBody, CardHeader, Heading, Text } from "grommet";
 import React from "react";
 import SimpleCard from "../SimpleCard/SimpleCard";
 
-const JobDetailCard = ({ jobdetail, interviewdetail, salary, address, contactnumber}) => {
+const JobDetailCard = ({
+  jobdetail,
+  interviewdetail,
+  salary,
+  address,
+  contactnumber,
+}) => {
   return (
     <Card
       pad={{ horizontal: "medium", vertical: "medium" }}
@@ -12,7 +18,7 @@ const JobDetailCard = ({ jobdetail, interviewdetail, salary, address, contactnum
       className="job-card-container"
     >
       <CardHeader>
-        <SimpleCard title="Organization name" desc="2020-06-06" />
+        <SimpleCard title="Organization name" date="2020-06-06" />
       </CardHeader>
       <CardBody>
         <Box>

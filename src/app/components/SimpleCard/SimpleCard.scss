@@ -2,4 +2,14 @@
   .org-avatar {
     border-radius: 12px !important;
   }
+
+  .dots {
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

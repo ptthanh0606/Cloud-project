@@ -31,6 +31,58 @@ const AllJobPage = () => {
               price="1000"
               uploaddate="7 Hours Ago"
             />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+          </Box>
+          <Box direction="row" wrap gap="15px">
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+          </Box>
+          <Box direction="row" wrap gap="15px">
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
+            <JobCard
+              jobtitle="Intern front-end web developer"
+              jobdesc="Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure Outlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structureOutlines keep you honest. If stop  indulging in poorly thought-out metaphors driving and keep structure"
+              price="1000"
+              uploaddate="7 Hours Ago"
+            />
           </Box>
         </Box>
       </Grid>

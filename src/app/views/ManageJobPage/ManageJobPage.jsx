@@ -1,7 +1,8 @@
 import { Box, Text } from "grommet";
 import { FormPreviousLink } from "grommet-icons/icons/FormPreviousLink";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import JobList from "../../components/JobList/JobList";
 import JobMangeForm from "../../components/JobMangeForm/JobMangeForm";
 import "./ManageJobPage.scss";
 
@@ -11,6 +12,27 @@ const ManageJobPage = () => {
   const handleBackLink = () => {
     history.goBack();
   };
+
+  const [jobList, setJobList] = useState([
+    {
+      id: "1",
+      jobTitle: "Intern frontend shit",
+      jobDesc: "Hiii",
+      salary: "3000",
+    },
+    {
+      id: "2",
+      jobTitle: "Intern frontend shit",
+      jobDesc: "Hiii",
+      salary: "3000",
+    },
+    {
+      id: "3",
+      jobTitle: "Intern frontend shit",
+      jobDesc: "Hiii",
+      salary: "3000",
+    },
+  ]);
 
   return (
     <Box
@@ -30,7 +52,10 @@ const ManageJobPage = () => {
           </Text>
         </Box>
       </Box>
-      <JobMangeForm />
+      <Box direction="row" gap="40px">
+        <JobMangeForm />
+        <JobList joblist={jobList} />
+      </Box>
     </Box>
   );
 };

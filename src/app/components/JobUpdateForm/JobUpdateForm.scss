@@ -1,7 +1,7 @@
-.user-detail-form-container {
+.job-update-form-container {
   .seperator {
     width: 100%;
-    background-color: #e5eaee;
+    border: 0.5px solid #E5EAEE;
   }
 
   .button-profile {
@@ -13,7 +13,7 @@
     color: black;
   }
 
-  .update {
+  .submit {
     background-color: #789dfe;
     color: white;
   }
@@ -23,7 +23,11 @@
     background-color: #f3f6f9;
     &::placeholder {
       font-weight: 400;
-      color: #b5b5c3;
+      color: #B5B5C3;
     }
+  }
+
+  .money-icon {
+    stroke: #B5B5C3;
   }
 }

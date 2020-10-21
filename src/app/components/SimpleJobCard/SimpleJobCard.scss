@@ -1,0 +1,23 @@
+.simple-job-card-container {
+  border-radius: 12px;
+  transition: background-color 200ms ease-in-out;
+
+  &:hover {
+    background-color: #f0f4fc;
+    cursor: pointer;
+  }
+
+  .org-avatar {
+    border-radius: 12px !important;
+  }
+
+  .dots {
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

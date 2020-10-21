@@ -16,6 +16,12 @@ const UserDetailForm = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [address, setAddress] = useState("");
 
+  const handleClearTextFields = () => {
+    setOrgName("");
+    setContactNumber("");
+    setAddress("");
+  };
+
   return (
     <Card
       pad={{ horizontal: "medium", vertical: "medium" }}
@@ -37,6 +43,7 @@ const UserDetailForm = () => {
               onChange={(e) => {
                 setOrgName(e.target.value);
               }}
+              value={orgName}
               required
             />
           </Box>
@@ -55,6 +62,7 @@ const UserDetailForm = () => {
               onChange={(e) => {
                 setContactNumber(e.target.value);
               }}
+              value={contactNumber}
               required
             />
           </Box>
@@ -73,6 +81,7 @@ const UserDetailForm = () => {
               onChange={(e) => {
                 setAddress(e.target.value);
               }}
+              value={address}
               required
             />
           </Box>
@@ -83,7 +92,11 @@ const UserDetailForm = () => {
       </CardBody>
       <CardFooter direction="row" justify="start" gap="small">
         <Button label="Update" className="button-profile update" />
-        <Button label="Clear" className="button-profile" />
+        <Button
+          label="Clear"
+          className="button-profile"
+          onClick={handleClearTextFields}
+        />
       </CardFooter>
     </Card>
   );
