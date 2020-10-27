@@ -13,7 +13,7 @@ const ManageJobPage = () => {
     history.goBack();
   };
 
-  const [jobList, setJobList] = useState([
+  const [jobList] = useState([
     {
       id: "1",
       jobTitle: "Intern frontend shit",

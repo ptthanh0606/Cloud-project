@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { checkLogin } from "./AppActions";
 import Cookies from "js-cookie";

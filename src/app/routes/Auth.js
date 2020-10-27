@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React from "react";
 import { Redirect } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../atoms";

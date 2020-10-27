@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const checkLogin = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
