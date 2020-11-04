@@ -1,9 +1,16 @@
 import { Box, Grid } from "grommet";
-import React from "react";
+import React, { useEffect } from "react";
 import UserCard from "../../components/UserCard/UserCard";
 import JobCard from "../../components/JobCard/JobCard";
+import { getPreviewJob } from "./AllJobsPageAction";
 
 const AllJobPage = () => {
+  useEffect(() => {
+    getPreviewJob().then(response => {
+      console.log(response);
+    })
+  }, []);
+
   return (
     <Box pad={{ horizontal: "xlarge", vertical: "large" }}>
       <Grid
