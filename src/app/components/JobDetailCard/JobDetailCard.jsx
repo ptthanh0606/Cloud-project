@@ -3,12 +3,13 @@ import React from "react";
 import SimpleCard from "../SimpleCard/SimpleCard";
 
 const JobDetailCard = ({
-  jobdetail,
-  interviewdetail,
-  salary,
-  address,
-  contactnumber,
+  jobDetail: { description, interviewDescription, salary, postedDate },
 }) => {
+  const formatDate = (date) => {
+    let dateObj = new Date(date);
+    return dateObj.toDateString();
+  };
+
   return (
     <Card
       pad={{ horizontal: "medium", vertical: "medium" }}
@@ -18,52 +19,20 @@ const JobDetailCard = ({
       className="job-card-container"
     >
       <CardHeader>
-        <SimpleCard title="Organization name" date="2020-06-06" />
+        <SimpleCard title="Organization name" date={formatDate(postedDate)} />
       </CardHeader>
       <CardBody>
         <Box>
           <Heading level="4" margin={{ top: "49px" }}>
             Job detail
           </Heading>
-          <Text size="14">
-            Mauris rhoncus aenean vel elit scelerisque. Id ornare arcu odio ut
-            sem nulla pharetra diam. Malesuada proin libero nunc consequat
-            interdum varius sit. Tortor posuere ac ut consequat. Pellentesque
-            habitant morbi tristique senectus et netus et. Consectetur purus ut
-            faucibus pulvinar elementum integer enim neque volutpat. Vitae
-            congue eu consequat ac felis. Ullamcorper morbi tincidunt ornare
-            massa eget egestas purus viverra. Interdum velit laoreet id donec
-            ultrices tincidunt arcu non sodales. Eu tincidunt tortor aliquam
-            nulla facilisi. Enim nunc faucibus a pellentesque sit amet
-            porttitor. Accumsan sit amet nulla facilisi morbi tempus iaculis
-            urna id. Ipsum faucibus vitae aliquet nec. Et tortor at risus
-            viverra adipiscing at in tellus integer. Faucibus scelerisque
-            eleifend donec pretium vulputate. Tristique magna sit amet purus.
-            Elit scelerisque mauris pellentesque pulvinar pellentesque habitant.
-            Nec ultrices dui sapien eget mi.
-          </Text>
+          <Text size="14">{description}</Text>
         </Box>
         <Box>
           <Heading level="4" margin={{ top: "49px" }}>
             Interview requisition description
           </Heading>
-          <Text size="14">
-            Mauris rhoncus aenean vel elit scelerisque. Id ornare arcu odio ut
-            sem nulla pharetra diam. Malesuada proin libero nunc consequat
-            interdum varius sit. Tortor posuere ac ut consequat. Pellentesque
-            habitant morbi tristique senectus et netus et. Consectetur purus ut
-            faucibus pulvinar elementum integer enim neque volutpat. Vitae
-            congue eu consequat ac felis. Ullamcorper morbi tincidunt ornare
-            massa eget egestas purus viverra. Interdum velit laoreet id donec
-            ultrices tincidunt arcu non sodales. Eu tincidunt tortor aliquam
-            nulla facilisi. Enim nunc faucibus a pellentesque sit amet
-            porttitor. Accumsan sit amet nulla facilisi morbi tempus iaculis
-            urna id. Ipsum faucibus vitae aliquet nec. Et tortor at risus
-            viverra adipiscing at in tellus integer. Faucibus scelerisque
-            eleifend donec pretium vulputate. Tristique magna sit amet purus.
-            Elit scelerisque mauris pellentesque pulvinar pellentesque habitant.
-            Nec ultrices dui sapien eget mi.
-          </Text>
+          <Text size="14">{interviewDescription}</Text>
         </Box>
         <Box
           direction="row"
@@ -75,7 +44,7 @@ const JobDetailCard = ({
             Salary:
           </Heading>
           <Text size="14" weight="bold" color="brand">
-            ~ $1000
+            ~ ${salary}
           </Text>
         </Box>
         <Box

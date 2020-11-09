@@ -13,11 +13,11 @@ import { truncateDesc } from "../../_helper";
 import "./JobCard.scss";
 import { useHistory } from "react-router-dom";
 
-const JobCard = ({ uploaddate, jobtitle, jobdesc, price }) => {
+const JobCard = ({ jobid, uploaddate, jobtitle, jobdesc, price }) => {
   const history = useHistory();
 
   const handleJobCardClick = () => {
-    history.push(`/job/detail`);
+    history.push(`/job/${jobid}/detail`);
   };
 
   return (

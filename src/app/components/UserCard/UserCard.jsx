@@ -15,11 +15,11 @@ import { useHistory } from "react-router-dom";
 import { truncateDesc } from "../../_helper/index";
 import "./UserCard.scss";
 
-const UserCard = ({ orgname, usermail, userdesc }) => {
+const UserCard = ({ userid, orgname, usermail, userdesc, isAuth }) => {
   const history = useHistory();
 
   const handleViewAccountDetail = () => {
-    history.push("/user/user-detail");
+    history.push(`/user/${userid}/user-detail`);
   };
 
   return (
@@ -29,7 +29,7 @@ const UserCard = ({ orgname, usermail, userdesc }) => {
       background="white"
       elevation="none"
       width="314px"
-      height="461px"
+      height="fit-content"
     >
       <CardHeader direction="column" gap="0">
         <Stack anchor="center">
@@ -58,22 +58,26 @@ const UserCard = ({ orgname, usermail, userdesc }) => {
           {usermail}
         </Text>
       </CardHeader>
-      <CardBody margin={{ vertical: "medium" }}>
-        <Text textAlign="center" size="14px">
-          {truncateDesc(userdesc, 90)}
-        </Text>
-      </CardBody>
-      <CardFooter direction="row" justify="center">
-        <Button
-          className="viewprofile-button"
-          primary
-          label="View my profile"
-          margin="small"
-          size="small"
-          color="#6993FF"
-          onClick={handleViewAccountDetail}
-        />
-      </CardFooter>
+      {isAuth && (
+        <>
+          <CardBody margin={{ vertical: "medium" }}>
+            <Text textAlign="center" size="14px">
+              {truncateDesc(userdesc, 90)}
+            </Text>
+          </CardBody>
+          <CardFooter direction="row" justify="center">
+            <Button
+              className="viewprofile-button"
+              primary
+              label="View my profile"
+              margin="small"
+              size="small"
+              color="#6993FF"
+              onClick={handleViewAccountDetail}
+            />
+          </CardFooter>
+        </>
+      )}
     </Card>
   );
 };

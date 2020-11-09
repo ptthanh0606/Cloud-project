@@ -2,17 +2,15 @@ import React from "react";
 import JobUpdateForm from "../JobUpdateForm/JobUpdateForm";
 import "./JobUpdateDialog.scss";
 
-const JobUpdateDialog = ({
-  jobDataProp,
-  closeDialogProp,
-  handleUpdateConfirmProp,
-}) => {
+const JobUpdateDialog = ({ jobDataProp, handleUpdateConfirmProp }) => {
   return (
     <JobUpdateForm
-      jobTitleProp={jobDataProp.jobTitle}
-      jobDescProp={jobDataProp.jobDesc}
-      jobSalaryProp={jobDataProp.jobSalary}
-      interviewDescProp={jobDataProp.interviewDesc}
+      jobid={jobDataProp.jobid}
+      ownerid={jobDataProp.ownerid}
+      name={jobDataProp.name}
+      description={jobDataProp.description}
+      salary={jobDataProp.salary}
+      interviewdescription={jobDataProp.interviewdescription}
       handleUpdateConfirmProp={handleUpdateConfirmProp}
     />
   );

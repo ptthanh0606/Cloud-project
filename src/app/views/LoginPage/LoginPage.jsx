@@ -3,24 +3,28 @@ import { Anchor, Box, Heading, Image, Text } from "grommet";
 import { useHistory } from "react-router-dom";
 import { useGoogleLogin } from "react-google-login";
 import { useSetRecoilState } from "recoil";
-import { OAuthAtom } from "../../atoms";
-import Cookies from "js-cookie";
+import { sendLoginIDToken, getUserObj } from "./LoginPageActions";
 
 import LoginForm from "../../components/LoginForm/LoginForm";
 import "./LoginPage.scss";
+import { IsAdminAtom, UserObjAtom } from "../../atoms";
 
 const CLIENT_ID =
   "700550014345-n104gnlrusrhn5rlj8edg8ugdsvtm0b5.apps.googleusercontent.com";
 
 const LoginPage = () => {
-  const history = useHistory();
-  const setOAuthAtom = useSetRecoilState(OAuthAtom);
+  const setLoggedUserObject = useSetRecoilState(UserObjAtom);
+  const setIsAdminState = useSetRecoilState(IsAdminAtom);
 
-  const onSuccess = (res) => {
-    console.log(res.tokenObj.id_token);
-    Cookies.remove("id_token");
-    Cookies.set("id_token", res.tokenObj.id_token);
-    setOAuthAtom(res);
+  const history = useHistory();
+
+  const onSuccess = async (res) => {
+    // await sendLoginIDToken(res.tokenObj.id_token);
+    const currentLoggedUserObject = await getUserObj();
+    setIsAdminState(currentLoggedUserObject.roleId === 1); // Set admin state
+    // setIsAdminState(currentLoggedUserObject.roleId !== 1); // Set user state
+    setLoggedUserObject(currentLoggedUserObject);
+
     history.push("/");
   };
 

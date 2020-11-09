@@ -1,63 +1,32 @@
-import React, { lazy, Suspense, useEffect } from "react";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
-import { checkLogin } from "./AppActions";
-import Cookies from "js-cookie";
+import React, { lazy, Suspense } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import "./App.scss";
+import { useRecoilValue } from "recoil";
+import { UserObjAtom } from "../atoms";
 import LoadingPage from "./LoadingPage/LoadingPage";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isLoginAtom, UserObjAtom } from "../atoms";
+import "./App.scss";
+
 const PageWithAppBar = lazy(() => import("./PageWithAppBar/PageWithAppBar"));
 const LoginPage = lazy(() => import("./LoginPage/LoginPage"));
 
 const App = () => {
-  const setUserObj = useSetRecoilState(UserObjAtom);
-  const setLoginState = useSetRecoilState(isLoginAtom);
-  const isLogin = useRecoilValue(isLoginAtom);
-  const history = useHistory();
-
-  useEffect(() => {
-    checkLogin(Cookies.get("id_token"))
-      .then((response) => {
-        console.log(response);
-        if (response) {
-          setUserObj(response);
-          setLoginState(true);
-        } else {
-          setLoginState(false);
-        }
-      })
-      .catch((error) => {
-        setLoginState(false);
-      });
-  }, [setLoginState, setUserObj]);
-
-  useEffect(() => {
-    history.listen(() => {
-      checkLogin(Cookies.get("id_token"))
-        .then((response) => {
-          console.log(response);
-          if (response) {
-            setUserObj(response);
-            setLoginState(true);
-          } else {
-            setLoginState(false);
-          }
-        })
-        .catch((error) => {
-          setLoginState(false);
-        });
-    });
-  }, [setUserObj, history, setLoginState]);
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
 
   return (
     <Switch>
       <Suspense fallback={LoadingPage}>
         <Route
           path="/login"
-          render={() => (isLogin ? <Redirect to="/" /> : <LoginPage />)}
+          render={() =>
+            currentLoggedUserObject ? <Redirect to="/" /> : <LoginPage />
+          }
         />
-        <Route path="/" render={() => <PageWithAppBar isLoginProp={isLogin}/>} />
+        <Route
+          path="/"
+          render={() => (
+            <PageWithAppBar isLoginProp={!!currentLoggedUserObject} />
+          )}
+        />
       </Suspense>
     </Switch>
   );

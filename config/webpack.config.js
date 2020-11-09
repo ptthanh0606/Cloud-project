@@ -129,14 +129,6 @@ module.exports = function (webpackEnv) {
   };
 
   return {
-    devServer: {
-      proxy: {
-        "/prc391": {
-          target: "http://localhost:8080/",
-          secure: false,
-        },
-      },
-    },
     mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
     // Stop compilation early in production
     bail: isEnvProduction,

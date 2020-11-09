@@ -13,27 +13,67 @@ import {
 import { Money } from "grommet-icons/icons";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { IsAdminAtom, JobListAtom, UserObjAtom } from "../../atoms";
+import { getAllJobsByOwnerID } from "../ConfirmJobDeletePopup/ConfirmJobDeletePopupActions";
 import "./JobUpdateForm.scss";
+import { updateJobDetail, getAllJobs } from "./JobUpdateFormActions";
 
 const JobUpdateForm = ({
-  jobTitleProp,
-  jobDescProp,
-  jobSalaryProp,
-  interviewDescProp,
+  jobid,
+  ownerid,
+  name,
+  description,
+  salary,
+  interviewdescription,
   handleUpdateConfirmProp,
 }) => {
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
+  const isAdmin = useRecoilValue(IsAdminAtom);
+  const setJobListAtom = useSetRecoilState(JobListAtom);
   const [isNegotiable, setIsNegotiable] = useState(false);
-  const [jobTitle, setJobTitle] = useState(jobTitleProp);
-  const [jobDesc, setJobDesc] = useState(jobDescProp);
-  const [jobSalary, setJobSalary] = useState(jobSalaryProp);
-  const [interviewDesc, setInterviewDesc] = useState(interviewDescProp);
+  const [jobname, setJobTitle] = useState(name);
+  const [jobdescription, setJobDesc] = useState(description);
+  const [jobsalary, setJobSalary] = useState(salary);
+  const [jobinterviewdescription, setInterviewDesc] = useState(
+    interviewdescription
+  );
 
   const handleClearAllTextField = () => {
-    setIsNegotiable("");
+    setIsNegotiable(false);
     setJobTitle("");
     setJobDesc("");
-    setJobSalary("");
+    setJobSalary(0);
     setInterviewDesc("");
+  };
+
+  const handleUpdateJob = () => {
+    updateJobDetail({
+      id: jobid,
+      name: jobname,
+      description: jobdescription,
+      salary: isNegotiable ? 0 : jobsalary,
+      interviewDescription: jobinterviewdescription,
+      ownerId: ownerid,
+    })
+      .then(() => {
+        if (isAdmin) {
+          getAllJobs().then((response) => {
+            alert("updated!");
+            setJobListAtom(response.data);
+            handleUpdateConfirmProp();
+          });
+        } else {
+          getAllJobsByOwnerID(currentLoggedUserObject.id).then((response) => {
+            alert("updated!");
+            setJobListAtom(response.data);
+            handleUpdateConfirmProp();
+          });
+        }
+      })
+      .catch((err) => {
+        handleUpdateConfirmProp();
+      });
   };
 
   return (
@@ -55,7 +95,7 @@ const JobUpdateForm = ({
               <Text size="14px">Job title</Text>
               <TextInput
                 placeholder="What job you want to post?"
-                value={jobTitle}
+                value={jobname}
                 onChange={(e) => setJobTitle(e.target.value)}
                 required
               />
@@ -72,7 +112,7 @@ const JobUpdateForm = ({
                 placeholder="Some description about the job..."
                 onChange={(e) => setJobDesc(e.target.value)}
                 required
-                value={jobDesc}
+                value={jobdescription}
               />
               <Text size="11px" color="#B5B5C3">
                 Please fill in job descriptions
@@ -88,7 +128,7 @@ const JobUpdateForm = ({
                 icon={<Money className="money-icon" />}
                 placeholder="Estimate pay"
                 onChange={(e) => setJobSalary(e.target.value)}
-                value={jobSalary}
+                value={jobsalary}
                 required
                 disabled={isNegotiable}
               />
@@ -108,7 +148,7 @@ const JobUpdateForm = ({
               <TextArea
                 placeholder="Description..."
                 onChange={(e) => setInterviewDesc(e.target.value)}
-                value={interviewDesc}
+                value={jobinterviewdescription}
                 required
               />
             </Box>
@@ -121,7 +161,7 @@ const JobUpdateForm = ({
           <Button
             label="Update"
             className="button-profile submit"
-            onClick={handleUpdateConfirmProp}
+            onClick={handleUpdateJob}
           />
           <Button
             label="Clear"

@@ -4,29 +4,35 @@ import AppBar from "../../components/AppBar/AppBar";
 import LoadingPage from "../LoadingPage/LoadingPage";
 
 const ManageJobPage = lazy(() => import("../ManageJobPage/ManageJobPage"));
+const ManageUserPage = lazy(() => import("../ManageUserPage/ManageUserPage"));
 const UserDetailPage = lazy(() => import("../UserDetailPage/UserDetailPage"));
 const AllJobPage = lazy(() => import("../AllJobsPage/AllJobsPage"));
 const JobDetailPage = lazy(() => import("../JobDetailPage/JobDetailPage"));
 const AuthRoute = lazy(() => import("../../routes/Auth"));
 
-const PageWithAppBar = ({ isLoginProp }) => {
+const PageWithAppBar = () => {
   const { path } = useRouteMatch();
   return (
     <>
-      <AppBar isLoginProp={isLoginProp} />
+      <AppBar />
       <Switch>
         <Suspense fallback={LoadingPage}>
           <Route path={path} exact render={() => <AllJobPage />} />
-          <Route path={`/job/detail`} render={() => <JobDetailPage />} />
+          <Route path={`/job/:id/detail`} render={() => <JobDetailPage />} />
           <Route
             path={`/manage-jobs`}
             exact
             render={() => <AuthRoute Component={ManageJobPage} />}
           />
           <Route
-            path={`/user/user-detail`}
+            path={`/manage-users`}
             exact
-            render={() => <UserDetailPage />}
+            render={() => <AuthRoute Component={ManageUserPage} />}
+          />
+          <Route
+            path={`/user/:id/user-detail`}
+            exact
+            render={() => <AuthRoute Component={UserDetailPage} />}
           />
         </Suspense>
       </Switch>

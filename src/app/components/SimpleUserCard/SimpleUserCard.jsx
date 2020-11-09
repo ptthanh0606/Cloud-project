@@ -1,22 +1,23 @@
-import { Avatar, Box, Card, Heading, Text } from "grommet";
+import { Avatar, Box, Heading, Text } from "grommet";
 import React, { useState } from "react";
 import { truncateDesc } from "../../_helper";
 import { Modal } from "react-bootstrap";
-import ConfirmJobDeletePopup from "../ConfirmJobDeletePopup/ConfirmJobDeletePopup.jsx";
-import JobUpdateDialog from "../JobUpdateDialog/JobUpdateDialog";
-import "./SimpleJobCard.scss";
+import "./SimpleUserCard.scss";
+import UserUpdateForm from "../UserUpdateForm/UserUpdateForm";
+import ConfirmUserDeletePopup from "../ConfirmUserDeletePopup/ConfirmUserDeletePopup.jsx";
 
-const SimpleJobCard = ({
-  jobid,
-  name,
-  description,
-  salary,
-  interviewdescription,
-  ownerid,
+const SimpleUserCard = ({
+  id,
+  organizationname,
+  email,
+  phonenumber,
+  address,
+  roleid,
+  photo,
 }) => {
   const [isShowConfirmDialog, setShowConfirmDialogState] = useState(false);
   const [isShowJobUpdate, setShowJobUpdateState] = useState(false);
-  const [jobData, setJobData] = useState();
+  const [userData, setUserData] = useState();
 
   const handleRemovalJob = () => {
     setShowConfirmDialogState(false);
@@ -26,61 +27,47 @@ const SimpleJobCard = ({
     setShowJobUpdateState(false);
   };
 
-  const handleGetJobDetailAndShowUpdateForm = () => {
+  const handleGetUserDetailAndShowUpdateForm = () => {
     setShowJobUpdateState(true);
-    setJobData({
-      jobid,
-      name,
-      description,
-      salary,
-      interviewdescription,
-      ownerid,
+    setUserData({
+      id,
+      organizationname,
+      email,
+      phonenumber,
+      address,
+      roleid,
+      photo,
     });
   };
 
   return (
     <>
       <Box
-        className="simple-job-card-container"
+        className="simple-user-card-container"
         direction="row"
         align="center"
         justify="between"
       >
         <Box direction="row" gap="medium">
           <Avatar
-            onClick={handleGetJobDetailAndShowUpdateForm}
+            onClick={handleGetUserDetailAndShowUpdateForm}
             className="org-avatar"
             src="//s.gravatar.com/avatar/b7fb138d53ba0f573212ccce38a7c43b?s=80"
           />
           <Box
             direction="column"
             justify="center"
-            onClick={handleGetJobDetailAndShowUpdateForm}
+            onClick={handleGetUserDetailAndShowUpdateForm}
           >
             <Heading level="5" margin="none" color="primaryText">
-              {name}
+              {organizationname}
             </Heading>
             <Text size="13px" color="#B5B5C3">
-              {truncateDesc(description || "", 54)}
+              {truncateDesc(email || "", 54)}
             </Text>
           </Box>
         </Box>
         <Box direction="row" gap="10px">
-          <Box direction="row" gap="14px">
-            <Box justify="center">
-              <Card
-                elevation="none"
-                background="#F3F6F9"
-                pad={{ horizontal: "7px", vertical: "5px" }}
-              >
-                {salary ? (
-                  <Text size="13px">{salary}$</Text>
-                ) : (
-                  <Text size="13px">Negotiable</Text>
-                )}
-              </Card>
-            </Box>
-          </Box>
           <Box
             className="dots"
             justify="center"
@@ -113,23 +100,22 @@ const SimpleJobCard = ({
             onHide={() => setShowConfirmDialogState(false)}
             centered
           >
-            <ConfirmJobDeletePopup
+            <ConfirmUserDeletePopup
               closeDialogProp={() => setShowConfirmDialogState(false)}
               handleRemovalJobProp={handleRemovalJob}
-              jobid={jobid}
+              userid={id}
             />
           </Modal>
         </Box>
       </Box>
       <Modal show={isShowJobUpdate} onHide={() => setShowJobUpdateState(false)}>
-        <JobUpdateDialog
-          closeDialogProp={() => setShowJobUpdateState(false)}
-          handleUpdateConfirmProp={handleUpdateConfirm}
-          jobDataProp={jobData}
+        <UserUpdateForm
+          handleUpdateConfirm={handleUpdateConfirm}
+          userData={userData}
         />
       </Modal>
     </>
   );
 };
 
-export default SimpleJobCard;
+export default SimpleUserCard;

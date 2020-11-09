@@ -9,18 +9,27 @@ import {
   Button,
 } from "grommet";
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { UserObjAtom } from "../../atoms";
-import "./UserDetailForm.scss";
-import { updateUserInfo } from "./UserDetailFormActions";
+import { useSetRecoilState } from "recoil";
+import { UserListAtom } from "../../atoms";
+import "./UserUpdateForm.scss";
+import { getAllUsers, updateUserInfo } from "./UserUpdateFormActions";
 
-const UserDetailForm = () => {
-  const currentLoggedUserObj = useRecoilValue(UserObjAtom);
-  const [orgName, setOrgName] = useState(currentLoggedUserObj.organizationName);
-  const [contactNumber, setContactNumber] = useState(
-    currentLoggedUserObj.phoneNumber
-  );
-  const [address, setAddress] = useState(currentLoggedUserObj.address);
+const UserUpdateForm = ({
+  userData: {
+    id,
+    organizationname,
+    email,
+    phonenumber,
+    address,
+    roleid,
+    photo,
+  },
+  handleUpdateConfirm,
+}) => {
+  const setUserListAtom = useSetRecoilState(UserListAtom);
+  const [orgName, setOrgName] = useState(organizationname);
+  const [contactNumber, setContactNumber] = useState(phonenumber);
+  const [addressState, setAddress] = useState(address);
 
   const handleClearTextFields = () => {
     setOrgName("");
@@ -30,16 +39,25 @@ const UserDetailForm = () => {
 
   const handleUpdateProfile = () => {
     updateUserInfo({
-      // Continue resolve 500 status
-      ...currentLoggedUserObj,
+      id,
+      email,
+      roleid,
+      photo,
       organizationName: orgName,
       phoneNumber: contactNumber,
-      address,
+      address: addressState,
     })
       .then(() => {
         alert("update completed!");
+        // Continue when getAllUsers API is completed!
+        // getAllUsers().then((response) => {
+        //   setUserListAtom(response.data);
+        // });
+        // handleUpdateConfirm();
       })
       .catch((err) => {
+        alert("update failed because updateUser API is 500 error code");
+        handleUpdateConfirm();
         console.log(err);
       });
   };
@@ -51,7 +69,7 @@ const UserDetailForm = () => {
       elevation="none"
       width="823px"
       gap="medium"
-      className="user-detail-form-container"
+      className="user-update-form-container"
     >
       <CardBody>
         <Box margin={{ bottom: "medium" }} gap="small">
@@ -103,7 +121,7 @@ const UserDetailForm = () => {
               onChange={(e) => {
                 setAddress(e.target.value);
               }}
-              value={address}
+              value={addressState}
               required
             />
           </Box>
@@ -128,4 +146,4 @@ const UserDetailForm = () => {
   );
 };
 
-export default UserDetailForm;
+export default UserUpdateForm;

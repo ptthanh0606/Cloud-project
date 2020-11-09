@@ -1,9 +1,4 @@
-import { OAuth } from "./_Auth";
-import { isLogin } from "./_Auth";
-import { JobPreview } from "./_JobPreview";
-import { UserObj } from "./_UserObj";
-
-export const OAuthAtom = OAuth;
-export const isLoginAtom = isLogin;
-export const UserObjAtom = UserObj;
-export const JobPreviewAtom = JobPreview;
+export { JobListAtom } from "./_JobList";
+export { UserObjAtom } from "./_User";
+export { IsAdminAtom } from "./_User";
+export { UserListAtom } from "./_UserList";

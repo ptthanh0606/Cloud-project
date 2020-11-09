@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
-import { Box, Heading, Button, TextInput } from "grommet";
-import { Search } from "grommet-icons";
+import React, { useEffect, useState } from "react";
+import { Box, Heading, Button } from "grommet";
 import { Route, useHistory, useLocation } from "react-router-dom";
 import { useGoogleLogout } from "react-google-login";
 
 import FunctionCard from "./FunctionCard/FunctionCard";
 import "./AppBar.scss";
-import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserObjAtom, IsAdminAtom } from "../../atoms";
+import Cookies from "js-cookie";
 
 const CLIENT_ID =
   "700550014345-n104gnlrusrhn5rlj8edg8ugdsvtm0b5.apps.googleusercontent.com";
 
-const AppBar = ({ isLoginProp }) => {
+const AppBar = () => {
+  const [currentLoggedUserObject, setCurrentLoggerUserObject] = useRecoilState(
+    UserObjAtom
+  );
+  const isAdmin = useRecoilValue(IsAdminAtom);
   const [appBarClassName, setAppBarClassName] = useState("app-bar-container");
 
   const history = useHistory();
@@ -24,7 +29,10 @@ const AppBar = ({ isLoginProp }) => {
   }, [pathname]);
 
   const onLogoutSuccess = () => {
+    setCurrentLoggerUserObject(null);
+    Cookies.remove("BREAER_ACCESS_TOKEN");
     alert("Sign out completed!");
+    
     history.push("/login");
   };
 
@@ -64,13 +72,8 @@ const AppBar = ({ isLoginProp }) => {
           <Heading level="2" margin="none" color="white">
             JRP
           </Heading>
-          <TextInput
-            icon={<Search className="white-icon" />}
-            placeholder="Search"
-            className="search-box"
-          />
         </Box>
-        {isLoginProp ? (
+        {currentLoggedUserObject ? (
           <Button
             primary
             label="Log out"
@@ -107,19 +110,35 @@ const AppBar = ({ isLoginProp }) => {
             />
           )}
         />
-        {isLoginProp && (
-          <Route
-            path={`/manage-jobs`}
-            exact
-            children={({ match }) => (
-              <FunctionCard
-                title="Manage posts"
-                subtitle="View and update your posts"
-                to={`/manage-jobs`}
-                selected={!!match}
+        {currentLoggedUserObject && (
+          <>
+            <Route
+              path={`/manage-jobs`}
+              exact
+              children={({ match }) => (
+                <FunctionCard
+                  title="Manage posts"
+                  subtitle="View and update your posts"
+                  to={`/manage-jobs`}
+                  selected={!!match}
+                />
+              )}
+            />
+            {isAdmin && (
+              <Route
+                path={`/manage-users`}
+                exact
+                children={({ match }) => (
+                  <FunctionCard
+                    title="Manage users"
+                    subtitle="Manage user in this website"
+                    to={`/manage-users`}
+                    selected={!!match}
+                  />
+                )}
               />
             )}
-          />
+          </>
         )}
       </Box>
     </Box>

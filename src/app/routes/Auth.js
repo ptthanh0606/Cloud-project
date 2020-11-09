@@ -1,12 +1,12 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isLoginAtom } from "../atoms";
+import { UserObjAtom } from "../atoms";
 
 const AuthRoute = ({ Component }) => {
-  const isLogin = useRecoilValue(isLoginAtom);
+  const currentLoggedUserObj = useRecoilValue(UserObjAtom);
 
-  return <>{isLogin ? <Component /> : <Redirect to="/login" />}</>;
+  return <>{currentLoggedUserObj ? <Component /> : <Redirect to="/login" />}</>;
 };
 
 export default AuthRoute;

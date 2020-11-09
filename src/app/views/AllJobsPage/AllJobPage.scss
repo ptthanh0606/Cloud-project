@@ -1,0 +1,16 @@
+.all-job-page-container {
+  .search-form {
+    width: stretch;
+    margin-bottom: 25px;
+
+    .search-box {
+      background-color: rgb(255, 255, 255);
+      border: none;
+
+      &::placeholder {
+        color: #b5b5c3;
+        font-weight: 300;
+      }
+    }
+  }
+}

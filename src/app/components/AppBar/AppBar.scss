@@ -7,15 +7,6 @@
     background-color: #6993ff;
   }
 
-  .search-box {
-    background-color: rgba($color: white, $alpha: 0.08);
-    border: none;
-    &::placeholder {
-      color: #c7f3e6;
-      font-weight: 300;
-    }
-  }
-
   .button-create-account {
     background-color: white;
     color: #464e5f;
@@ -29,5 +20,3 @@
 .hidden {
   display: none;
 }
-
-

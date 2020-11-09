@@ -11,19 +11,21 @@ import {
 } from "grommet";
 import { Money } from "grommet-icons/icons";
 import React, { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { IsAdminAtom, JobListAtom, UserObjAtom } from "../../atoms";
+import { getAllJobsByOwnerID } from "../ConfirmJobDeletePopup/ConfirmJobDeletePopupActions";
 import "./JobMangeForm.scss";
+import { insertJob, getAllJobs } from "./JobMangeFormActions";
 
-const JobManageForm = ({
-  jobTitleProp,
-  jobDescProp,
-  jobSalaryProp,
-  interviewDescProp,
-}) => {
+const JobManageForm = () => {
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
+  const isAdmin = useRecoilValue(IsAdminAtom);
+  const setJobListAtom = useSetRecoilState(JobListAtom);
   const [isNegotiable, setIsNegotiable] = useState(false);
-  const [jobTitle, setJobTitle] = useState(jobTitleProp);
-  const [jobDesc, setJobDesc] = useState(jobDescProp);
-  const [jobSalary, setJobSalary] = useState(jobSalaryProp);
-  const [interviewDesc, setInterviewDesc] = useState(interviewDescProp);
+  const [jobname, setJobTitle] = useState("");
+  const [jobdescription, setJobDesc] = useState("");
+  const [jobsalary, setJobSalary] = useState("");
+  const [jobinterviewdescription, setInterviewDesc] = useState("");
 
   const handleClearAllTextField = () => {
     setIsNegotiable("");
@@ -34,7 +36,25 @@ const JobManageForm = ({
   };
 
   const handleAddJob = () => {
-    alert("added!");
+    insertJob({
+      id: Math.floor(Math.random() * 100),
+      name: jobname,
+      description: jobdescription,
+      salary: isNegotiable ? 0 : jobsalary,
+      interviewDescription: jobinterviewdescription,
+      ownerId: currentLoggedUserObject.id,
+    }).then(() => {
+      alert("added!");
+      if (isAdmin) {
+        getAllJobs().then((response) => {
+          setJobListAtom(response.data);
+        });
+      } else {
+        getAllJobsByOwnerID(currentLoggedUserObject.id).then((response) => {
+          setJobListAtom(response.data);
+        });
+      }
+    });
   };
 
   return (
@@ -52,7 +72,7 @@ const JobManageForm = ({
             <Text size="14px">Job title</Text>
             <TextInput
               placeholder="What job you want to post?"
-              value={jobTitle}
+              value={jobname}
               onChange={(e) => setJobTitle(e.target.value)}
               required
             />
@@ -69,7 +89,7 @@ const JobManageForm = ({
               placeholder="Some description about the job..."
               onChange={(e) => setJobDesc(e.target.value)}
               required
-              value={jobDesc}
+              value={jobdescription}
             />
             <Text size="11px" color="#B5B5C3">
               Please fill in job descriptions
@@ -85,7 +105,7 @@ const JobManageForm = ({
               icon={<Money className="money-icon" />}
               placeholder="Estimate pay"
               onChange={(e) => setJobSalary(e.target.value)}
-              value={jobSalary}
+              value={jobsalary}
               required
               disabled={isNegotiable}
             />
@@ -105,7 +125,7 @@ const JobManageForm = ({
             <TextArea
               placeholder="Description..."
               onChange={(e) => setInterviewDesc(e.target.value)}
-              value={interviewDesc}
+              value={jobinterviewdescription}
               required
             />
           </Box>

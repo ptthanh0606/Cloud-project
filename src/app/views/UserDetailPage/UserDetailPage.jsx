@@ -2,7 +2,7 @@ import { Box, Text } from "grommet";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { FormPreviousLink } from "grommet-icons";
-import UserDetailFrom from "../../components/UserDetailForm/UserDetailForm";
+import UserDetailForm from "../../components/UserDetailForm/UserDetailForm";
 import "./UserDetailPage.scss";
 
 const UserDetailPage = () => {
@@ -30,7 +30,7 @@ const UserDetailPage = () => {
           </Text>
         </Box>
       </Box>
-      <UserDetailFrom />
+      <UserDetailForm />
     </Box>
   );
 };
