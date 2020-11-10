@@ -3,6 +3,7 @@ import { Anchor, Box, Heading, Image, Text } from "grommet";
 import { useHistory } from "react-router-dom";
 import { useGoogleLogin } from "react-google-login";
 import { useSetRecoilState } from "recoil";
+// eslint-disable-next-line no-unused-vars
 import { sendLoginIDToken, getUserObj } from "./LoginPageActions";
 
 import LoginForm from "../../components/LoginForm/LoginForm";

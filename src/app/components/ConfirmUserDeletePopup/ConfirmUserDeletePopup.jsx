@@ -5,15 +5,19 @@ import { useSetRecoilState } from "recoil";
 import { UserListAtom } from "../../atoms";
 import "./ConfirmUserDeletePopup.scss";
 import {
+  // eslint-disable-next-line no-unused-vars
   deleteSelectedUser,
+  // eslint-disable-next-line no-unused-vars
   getAllUsers,
 } from "./ConfirmUserDeletePopupActions";
 
+// eslint-disable-next-line no-unused-vars
 const ConfirmJobDeletePopup = ({
   userid,
   closeDialogProp,
   handleRemovalJobProp,
 }) => {
+  // eslint-disable-next-line no-unused-vars
   const setUserListState = useSetRecoilState(UserListAtom);
 
   const handleDeleteJob = () => {

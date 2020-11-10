@@ -18,8 +18,9 @@ const AllJobPage = () => {
   const addThreeJobToRow = (tempJobList, rootJobList) => {
     if (tempJobList.length) {
       rootJobList.push(tempJobList.splice(0, 3));
-      addThreeJobToRow(tempJobList, rootJobList);
+      return addThreeJobToRow(tempJobList, rootJobList);
     }
+    return;
   };
 
   const processJobListResponse = (data) => {
@@ -52,6 +53,7 @@ const AllJobPage = () => {
       setFoundState(true);
       setJobList(processJobListResponse(response.data));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

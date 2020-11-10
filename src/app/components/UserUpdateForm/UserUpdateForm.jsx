@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { UserListAtom } from "../../atoms";
 import "./UserUpdateForm.scss";
+// eslint-disable-next-line no-unused-vars
 import { getAllUsers, updateUserInfo } from "./UserUpdateFormActions";
 
 const UserUpdateForm = ({
@@ -26,6 +27,7 @@ const UserUpdateForm = ({
   },
   handleUpdateConfirm,
 }) => {
+  // eslint-disable-next-line no-unused-vars
   const setUserListAtom = useSetRecoilState(UserListAtom);
   const [orgName, setOrgName] = useState(organizationname);
   const [contactNumber, setContactNumber] = useState(phonenumber);
