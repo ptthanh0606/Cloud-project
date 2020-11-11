@@ -39,6 +39,7 @@ const LoginPage = () => {
     onSuccess,
     onFailure,
     clientId: CLIENT_ID,
+    cookiePolicy: "single_host_origin",
   });
 
   return (
