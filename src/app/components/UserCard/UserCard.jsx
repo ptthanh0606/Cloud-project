@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { truncateDesc } from "../../_helper/index";
 import "./UserCard.scss";
 
-const UserCard = ({ userid, orgname, usermail, userdesc, isAuth }) => {
+const UserCard = ({ userid, orgname, usermail, userdesc, isAuth, photo }) => {
   const history = useHistory();
 
   const handleViewAccountDetail = () => {
@@ -47,7 +47,7 @@ const UserCard = ({ userid, orgname, usermail, userdesc, isAuth }) => {
           />
           <Avatar
             className="user-avatar"
-            src="https://i.imgur.com/j6uYhVQ.png"
+            src={photo || "https://i.imgur.com/j6uYhVQ.png"}
             size="119px"
           />
         </Stack>
@@ -62,7 +62,7 @@ const UserCard = ({ userid, orgname, usermail, userdesc, isAuth }) => {
         <>
           <CardBody margin={{ vertical: "medium" }}>
             <Text textAlign="center" size="14px">
-              {truncateDesc(userdesc, 90)}
+              {userdesc ? truncateDesc(userdesc, 90) : ""}
             </Text>
           </CardBody>
           <CardFooter direction="row" justify="center">

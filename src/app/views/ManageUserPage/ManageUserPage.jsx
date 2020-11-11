@@ -2,13 +2,14 @@ import { Box, Text } from "grommet";
 import React, { useEffect } from "react";
 import { FormPreviousLink } from "grommet-icons/icons/FormPreviousLink";
 import { useHistory } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { UserListAtom } from "../../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserListAtom, UserObjAtom } from "../../atoms";
 import "./ManageUserPage.scss";
 import { getAllUsers } from "./ManageUserPageActions";
 import UserList from "../../components/UserList/UserList";
 
 const ManageUserPage = () => {
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
   const [UserListState, setUserListState] = useRecoilState(UserListAtom);
   const history = useHistory();
 
@@ -18,9 +19,13 @@ const ManageUserPage = () => {
 
   useEffect(() => {
     getAllUsers().then((response) => {
-      setUserListState(response);
+      setUserListState(
+        response.filter((user) => {
+          return user.id !== currentLoggedUserObject.id;
+        })
+      );
     });
-  }, [setUserListState]);
+  }, [setUserListState, currentLoggedUserObject.id]);
 
   return (
     <Box

@@ -2,7 +2,7 @@ import { Avatar, Box, Heading, Text } from "grommet";
 import React from "react";
 import "./SimpleCard.scss";
 
-const SimpleCard = ({ title, date }) => {
+const SimpleCard = ({ title, date, photo }) => {
   return (
     <>
       <Box
@@ -14,7 +14,7 @@ const SimpleCard = ({ title, date }) => {
         <Box direction="row" gap="medium">
           <Avatar
             className="org-avatar"
-            src="https://i.imgur.com/xIkIdf8.png"
+            src={photo || "https://i.imgur.com/j6uYhVQ.png"}
           />
           <Box direction="column" justify="center">
             <Heading level="5" margin="none" color="primaryText">

@@ -91,6 +91,7 @@ const AllJobPage = () => {
             userdesc={currentLoggedUserObj.address}
             usermail={currentLoggedUserObj.email}
             userid={currentLoggedUserObj.id}
+            photo={currentLoggedUserObj.photo}
             isAuth={true}
           />
         ) : (

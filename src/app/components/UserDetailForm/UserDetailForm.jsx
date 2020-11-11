@@ -16,11 +16,13 @@ import { updateUserInfo } from "./UserDetailFormActions";
 
 const UserDetailForm = () => {
   const [currentLoggedUserObj, setCurrentUserObj] = useRecoilState(UserObjAtom);
-  const [orgName, setOrgName] = useState(currentLoggedUserObj.organizationName);
-  const [contactNumber, setContactNumber] = useState(
-    currentLoggedUserObj.phoneNumber
+  const [orgName, setOrgName] = useState(
+    currentLoggedUserObj.organizationName || ""
   );
-  const [address, setAddress] = useState(currentLoggedUserObj.address);
+  const [contactNumber, setContactNumber] = useState(
+    currentLoggedUserObj.phoneNumber || ""
+  );
+  const [address, setAddress] = useState(currentLoggedUserObj.address || "");
 
   const handleClearTextFields = () => {
     setOrgName("");

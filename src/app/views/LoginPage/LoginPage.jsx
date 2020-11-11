@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   const onSuccess = async (res) => {
     console.log(res);
-    // await sendLoginIDToken(res.tokenObj.id_token);
+    await sendLoginIDToken(res.tokenId);
     try {
       const currentLoggedUserObject = await getUserObj();
       setIsAdminState(currentLoggedUserObject.roleId === 2); // Set admin state
