@@ -20,7 +20,6 @@ const LoginPage = () => {
   const history = useHistory();
 
   const onSuccess = async (res) => {
-    console.log(res);
     await sendLoginIDToken(res.tokenId);
     try {
       const currentLoggedUserObject = await getUserObj();

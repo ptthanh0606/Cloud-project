@@ -8,14 +8,11 @@ import "./LoginForm.scss";
 
 const LoginForm = ({ onSigninWithGoogle }) => {
   const history = useHistory();
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
   const [isLoading, setLoadingState] = useState(false);
   const [loadText, setLoadText] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(userEmail, userPassword);
     setLoadText("Login in");
     setLoadingState(true);
     setTimeout(() => {
@@ -56,7 +53,7 @@ const LoginForm = ({ onSigninWithGoogle }) => {
               placeholder="Email.."
               className="input-field"
               name="userEmail"
-              onChange={(e) => setUserEmail(e.target.value)}
+              disabled
             />
           </Box>
           <Box margin={{ top: "medium" }} gap="small">
@@ -65,10 +62,10 @@ const LoginForm = ({ onSigninWithGoogle }) => {
             </Text>
             <TextInput
               type="password"
+              disabled
               placeholder="Password.."
               className="input-field"
               name="userPassword"
-              onChange={(e) => setUserPassword(e.target.value)}
             />
           </Box>
         </Box>

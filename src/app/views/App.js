@@ -1,16 +1,29 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-import { useRecoilValue } from "recoil";
-import { UserObjAtom } from "../atoms";
+import Cookies from "js-cookie";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { IsAdminAtom, UserObjAtom } from "../atoms";
 import LoadingPage from "./LoadingPage/LoadingPage";
 import "./App.scss";
+import { getUserObj } from "./AppActions";
 
 const PageWithAppBar = lazy(() => import("./PageWithAppBar/PageWithAppBar"));
 const LoginPage = lazy(() => import("./LoginPage/LoginPage"));
 
 const App = () => {
-  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
+  const setIsAdminState = useSetRecoilState(IsAdminAtom);
+  const [currentLoggedUserObject, setCurrentLoggedUserObject] = useRecoilState(
+    UserObjAtom
+  );
+
+  useEffect(() => {
+    if (Cookies.get("BREAER_ACCESS_TOKEN")) {
+      getUserObj().then((response) => {
+        setCurrentLoggedUserObject(response);
+        setIsAdminState(response.roleId === 2); // Set admin state
+      });
+    }
+  }, [setCurrentLoggedUserObject, setIsAdminState]);
 
   return (
     <Switch>
