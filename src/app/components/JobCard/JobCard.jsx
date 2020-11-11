@@ -35,7 +35,7 @@ const JobCard = ({ jobid, uploaddate, jobtitle, jobdesc, price }) => {
         </Text>
         <Avatar
           className="org-avatar"
-          src="//s.gravatar.com/avatar/b7fb138d53ba0f573212ccce38a7c43b?s=80"
+          src="https://i.imgur.com/xIkIdf8.png"
         />
       </CardHeader>
       <CardBody margin={{ vertical: "medium" }}>

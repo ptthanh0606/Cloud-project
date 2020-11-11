@@ -51,14 +51,12 @@ const UserUpdateForm = ({
     })
       .then(() => {
         alert("update completed!");
-        // Continue when getAllUsers API is completed!
-        // getAllUsers().then((response) => {
-        //   setUserListAtom(response.data);
-        // });
-        // handleUpdateConfirm();
+        getAllUsers().then((response) => {
+          setUserListAtom(response.data);
+        });
+        handleUpdateConfirm();
       })
       .catch((err) => {
-        alert("update failed because updateUser API is 500 error code");
         handleUpdateConfirm();
         console.log(err);
       });

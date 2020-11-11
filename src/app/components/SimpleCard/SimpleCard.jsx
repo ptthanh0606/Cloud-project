@@ -14,7 +14,7 @@ const SimpleCard = ({ title, date }) => {
         <Box direction="row" gap="medium">
           <Avatar
             className="org-avatar"
-            src="//s.gravatar.com/avatar/b7fb138d53ba0f573212ccce38a7c43b?s=80"
+            src="https://i.imgur.com/xIkIdf8.png"
           />
           <Box direction="column" justify="center">
             <Heading level="5" margin="none" color="primaryText">

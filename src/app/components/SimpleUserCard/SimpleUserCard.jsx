@@ -1,6 +1,5 @@
 import { Avatar, Box, Heading, Text } from "grommet";
 import React, { useState } from "react";
-import { truncateDesc } from "../../_helper";
 import { Modal } from "react-bootstrap";
 import "./SimpleUserCard.scss";
 import UserUpdateForm from "../UserUpdateForm/UserUpdateForm";
@@ -63,7 +62,7 @@ const SimpleUserCard = ({
               {organizationname}
             </Heading>
             <Text size="13px" color="#B5B5C3">
-              {truncateDesc(email || "", 54)}
+              {email}
             </Text>
           </Box>
         </Box>

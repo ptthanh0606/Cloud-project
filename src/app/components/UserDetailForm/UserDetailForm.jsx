@@ -9,13 +9,13 @@ import {
   Button,
 } from "grommet";
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { UserObjAtom } from "../../atoms";
 import "./UserDetailForm.scss";
 import { updateUserInfo } from "./UserDetailFormActions";
 
 const UserDetailForm = () => {
-  const currentLoggedUserObj = useRecoilValue(UserObjAtom);
+  const [currentLoggedUserObj, setCurrentUserObj] = useRecoilState(UserObjAtom);
   const [orgName, setOrgName] = useState(currentLoggedUserObj.organizationName);
   const [contactNumber, setContactNumber] = useState(
     currentLoggedUserObj.phoneNumber
@@ -30,14 +30,19 @@ const UserDetailForm = () => {
 
   const handleUpdateProfile = () => {
     updateUserInfo({
-      // Continue resolve 500 status
       ...currentLoggedUserObj,
       organizationName: orgName,
       phoneNumber: contactNumber,
-      address,
+      address: address,
     })
       .then(() => {
         alert("update completed!");
+        setCurrentUserObj({
+          ...currentLoggedUserObj,
+          organizationName: orgName,
+          phoneNumber: contactNumber,
+          address: address,
+        });
       })
       .catch((err) => {
         console.log(err);

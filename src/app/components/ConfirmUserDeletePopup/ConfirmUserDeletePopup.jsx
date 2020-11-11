@@ -5,30 +5,28 @@ import { useSetRecoilState } from "recoil";
 import { UserListAtom } from "../../atoms";
 import "./ConfirmUserDeletePopup.scss";
 import {
-  // eslint-disable-next-line no-unused-vars
   deleteSelectedUser,
-  // eslint-disable-next-line no-unused-vars
   getAllUsers,
 } from "./ConfirmUserDeletePopupActions";
 
-// eslint-disable-next-line no-unused-vars
 const ConfirmJobDeletePopup = ({
   userid,
   closeDialogProp,
   handleRemovalJobProp,
 }) => {
-  // eslint-disable-next-line no-unused-vars
   const setUserListState = useSetRecoilState(UserListAtom);
 
   const handleDeleteJob = () => {
-    alert("Action is being pending due to get all users API");
-    // Continue when getAllUsers API is completed!
-    // deleteSelectedUser(userid).then(() => {
-    //   handleRemovalJobProp();
-    //   getAllUsers().then((response) => {
-    //     setUserListState(response.data); // Fix
-    //   });
-    // });
+    deleteSelectedUser(userid)
+      .then(() => {
+        handleRemovalJobProp();
+        getAllUsers().then((response) => {
+          setUserListState(response.data);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="ConfirmDeletePopup-container">

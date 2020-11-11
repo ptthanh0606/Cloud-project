@@ -18,7 +18,7 @@ const ManageUserPage = () => {
 
   useEffect(() => {
     getAllUsers().then((response) => {
-      setUserListState([response.data]);
+      setUserListState(response);
     });
   }, [setUserListState]);
 

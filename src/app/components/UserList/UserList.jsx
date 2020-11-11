@@ -13,7 +13,7 @@ const UserList = ({ userlist }) => {
     >
       <CardHeader direction="row" justify="between" align="center">
         <Heading level="4" margin="none" color="primaryText">
-          All user in the system
+          All users in the system
         </Heading>
       </CardHeader>
       <CardBody margin={{ vertical: "medium" }} direction="column" gap="30px">
@@ -22,7 +22,7 @@ const UserList = ({ userlist }) => {
             key={user.id}
             organizationname={user.organizationName}
             id={user.id}
-            email={user.name}
+            email={user.email}
             phonenumber={user.phoneNumber}
             address={user.address}
             roleid={user.roleId}

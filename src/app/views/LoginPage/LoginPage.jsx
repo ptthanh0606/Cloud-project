@@ -22,10 +22,12 @@ const LoginPage = () => {
   const onSuccess = async (res) => {
     console.log(res);
     // await sendLoginIDToken(res.tokenObj.id_token);
-    const currentLoggedUserObject = await getUserObj();
-    setIsAdminState(currentLoggedUserObject.roleId === 1); // Set admin state
-    // setIsAdminState(currentLoggedUserObject.roleId !== 1); // Set user state
-    setLoggedUserObject(currentLoggedUserObject);
+    try {
+      const currentLoggedUserObject = await getUserObj();
+      setIsAdminState(currentLoggedUserObject.roleId === 1); // Set admin state
+      // setIsAdminState(currentLoggedUserObject.roleId !== 1); // Set user state
+      setLoggedUserObject(currentLoggedUserObject);
+    } catch (error) {}
 
     history.push("/");
   };
@@ -50,7 +52,7 @@ const LoginPage = () => {
         </Box>
         <Image
           fit="cover"
-          src="https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.15752-9/120844145_362682444920138_1497833907144410006_n.png?_nc_cat=102&_nc_sid=ae9488&_nc_ohc=ZGAnATey4ZgAX_6CiEl&_nc_ht=scontent.fsgn5-4.fna&oh=d705147f9a45000c0637a9bb9e122154&oe=5FA423E0"
+          src="https://i.imgur.com/VZuP4I5.png"
         />
       </Box>
       <Box

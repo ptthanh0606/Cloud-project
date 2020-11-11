@@ -47,7 +47,7 @@ const UserCard = ({ userid, orgname, usermail, userdesc, isAuth }) => {
           />
           <Avatar
             className="user-avatar"
-            src="//s.gravatar.com/avatar/b7fb138d53ba0f573212ccce38a7c43b?s=80"
+            src="https://i.imgur.com/j6uYhVQ.png"
             size="119px"
           />
         </Stack>

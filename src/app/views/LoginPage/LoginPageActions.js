@@ -17,8 +17,8 @@ export const getUserObj = () => {
     Axios.get(
       `http://localhost:8080/prc391/api/users/user?email=hellopt1@gmail.com`
     ).then((response) => {
-      console.log(response.data.data);
-      resolve(response.data.data);
+      console.log(response.data.data[0]);
+      resolve(response.data.data[0]);
     });
   });
 };
