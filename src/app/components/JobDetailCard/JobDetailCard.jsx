@@ -4,7 +4,7 @@ import SimpleCard from "../SimpleCard/SimpleCard";
 
 const JobDetailCard = ({
   jobDetail: { description, interviewDescription, salary, postedDate },
-  ownername,
+  ownerdetail: {organizationName, address, phoneNumber},
 }) => {
   const formatDate = (date) => {
     let dateObj = new Date(date);
@@ -20,7 +20,7 @@ const JobDetailCard = ({
       className="job-card-container"
     >
       <CardHeader>
-        <SimpleCard title={ownername} date={formatDate(postedDate)} />
+        <SimpleCard title={organizationName} date={formatDate(postedDate)} />
       </CardHeader>
       <CardBody>
         <Box>
@@ -45,7 +45,7 @@ const JobDetailCard = ({
             Salary:
           </Heading>
           <Text size="14" weight="bold" color="brand">
-            ~ ${salary}
+            {salary ? `~ ${salary}` : 'Negotiable'}
           </Text>
         </Box>
         <Box
@@ -57,7 +57,7 @@ const JobDetailCard = ({
           <Heading level="4" margin="none">
             Address:
           </Heading>
-          <Text size="14">124 DTL St. W4 D8</Text>
+          <Text size="14">{address}</Text>
         </Box>
         <Box
           direction="row"
@@ -68,7 +68,7 @@ const JobDetailCard = ({
           <Heading level="4" margin="none">
             Contact number:
           </Heading>
-          <Text size="14">+84 76 5413 668</Text>
+          <Text size="14">{phoneNumber}</Text>
         </Box>
       </CardBody>
     </Card>

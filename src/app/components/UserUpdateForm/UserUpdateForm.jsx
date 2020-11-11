@@ -12,7 +12,6 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { UserListAtom } from "../../atoms";
 import "./UserUpdateForm.scss";
-// eslint-disable-next-line no-unused-vars
 import { getAllUsers, updateUserInfo } from "./UserUpdateFormActions";
 
 const UserUpdateForm = ({
@@ -27,7 +26,6 @@ const UserUpdateForm = ({
   },
   handleUpdateConfirm,
 }) => {
-  // eslint-disable-next-line no-unused-vars
   const setUserListAtom = useSetRecoilState(UserListAtom);
   const [orgName, setOrgName] = useState(organizationname);
   const [contactNumber, setContactNumber] = useState(phonenumber);
@@ -39,7 +37,8 @@ const UserUpdateForm = ({
     setAddress("");
   };
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = (event) => {
+    event.preventDefault();
     updateUserInfo({
       id,
       email,
@@ -71,77 +70,79 @@ const UserUpdateForm = ({
       gap="medium"
       className="user-update-form-container"
     >
-      <CardBody>
-        <Box margin={{ bottom: "medium" }} gap="small">
-          <Box gap="medium">
-            <Heading level="4" margin="none" color="primaryText">
-              Organization name
-            </Heading>
-            <TextInput
-              className="input-field"
-              placeholder="Name..."
-              onChange={(e) => {
-                setOrgName(e.target.value);
-              }}
-              value={orgName}
-              required
-            />
+      <form onSubmit={handleUpdateProfile}>
+        <CardBody>
+          <Box margin={{ bottom: "medium" }} gap="small">
+            <Box gap="medium">
+              <Heading level="4" margin="none" color="primaryText">
+                Organization name
+              </Heading>
+              <TextInput
+                className="input-field"
+                placeholder="Name..."
+                onChange={(e) => {
+                  setOrgName(e.target.value);
+                }}
+                value={orgName}
+                required
+              />
+            </Box>
+            <Text size="11px" color="#B5B5C3">
+              Please enter your organization name
+            </Text>
           </Box>
-          <Text size="11px" color="#B5B5C3">
-            Please enter your organization name
-          </Text>
-        </Box>
-        <Box margin={{ bottom: "medium" }} gap="small">
-          <Box gap="medium">
-            <Heading level="4" margin="none" color="primaryText">
-              How they can reach you
-            </Heading>
-            <TextInput
-              className="input-field"
-              placeholder="Contact number..."
-              onChange={(e) => {
-                setContactNumber(e.target.value);
-              }}
-              value={contactNumber}
-              required
-            />
+          <Box margin={{ bottom: "medium" }} gap="small">
+            <Box gap="medium">
+              <Heading level="4" margin="none" color="primaryText">
+                How they can reach you
+              </Heading>
+              <TextInput
+                className="input-field"
+                placeholder="Contact number..."
+                onChange={(e) => {
+                  setContactNumber(e.target.value);
+                }}
+                value={contactNumber}
+                required
+              />
+            </Box>
+            <Text size="11px" color="#B5B5C3">
+              People can contact you with this
+            </Text>
           </Box>
-          <Text size="11px" color="#B5B5C3">
-            People can contact you with this
-          </Text>
-        </Box>
-        <Box margin={{ bottom: "medium" }} gap="small">
-          <Box gap="medium">
-            <Heading level="4" margin="none" color="primaryText">
-              Your location at
-            </Heading>
-            <TextInput
-              className="input-field"
-              placeholder="Your public address..."
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
-              value={addressState}
-              required
-            />
+          <Box margin={{ bottom: "medium" }} gap="small">
+            <Box gap="medium">
+              <Heading level="4" margin="none" color="primaryText">
+                Your location at
+              </Heading>
+              <TextInput
+                className="input-field"
+                placeholder="Your public address..."
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
+                value={addressState}
+                required
+              />
+            </Box>
+            <Text size="11px" color="#B5B5C3">
+              People can find you here
+            </Text>
           </Box>
-          <Text size="11px" color="#B5B5C3">
-            People can find you here
-          </Text>
-        </Box>
-      </CardBody>
-      <CardFooter direction="row" justify="start" gap="small">
-        <Button
-          label="Update"
-          className="button-profile update"
-          onClick={handleUpdateProfile}
-        />
-        <Button
-          label="Clear"
-          className="button-profile"
-          onClick={handleClearTextFields}
-        />
-      </CardFooter>
+        </CardBody>
+        <CardFooter direction="row" justify="start" gap="small">
+          <Button
+            label="Update"
+            className="button-profile update"
+            type="submit"
+          />
+          <Button
+            label="Clear"
+            className="button-profile"
+            onClick={handleClearTextFields}
+          />
+        </CardFooter>
+      </form>
     </Card>
   );
 };

@@ -33,10 +33,7 @@ const JobCard = ({ jobid, uploaddate, jobtitle, jobdesc, price }) => {
         <Text color="#B5B5C3" size="14px">
           {uploaddate}
         </Text>
-        <Avatar
-          className="org-avatar"
-          src="https://i.imgur.com/xIkIdf8.png"
-        />
+        <Avatar className="org-avatar" src="https://i.imgur.com/xIkIdf8.png" />
       </CardHeader>
       <CardBody margin={{ vertical: "medium" }}>
         <Heading level="4" margin="none">
@@ -51,7 +48,7 @@ const JobCard = ({ jobid, uploaddate, jobtitle, jobdesc, price }) => {
           more...
         </Text>
         <Text color="#6993FF" margin={{ top: "medium" }}>
-          ~ ${price}
+          {price ? `~ $${price}` : "Negotiable"}
         </Text>
       </CardFooter>
     </Card>

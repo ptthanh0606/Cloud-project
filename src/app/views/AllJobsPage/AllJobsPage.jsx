@@ -11,7 +11,6 @@ import { useRecoilValue } from "recoil";
 const AllJobPage = () => {
   const currentLoggedUserObj = useRecoilValue(UserObjAtom);
 
-  const [isFound, setFoundState] = useState(true);
   const [joblist, setJobList] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
 
@@ -39,19 +38,20 @@ const AllJobPage = () => {
     e.preventDefault();
     getSearchJobResult(searchValue)
       .then((response) => {
-        setFoundState(true);
-        setJobList(processJobListResponse(response.data));
+        if (response.data) {
+          setJobList(processJobListResponse(response.data));
+        } else setJobList([]);
       })
       .catch((err) => {
         console.log(err);
-        setFoundState(false);
       });
   };
 
   useEffect(() => {
     getPreviewJob().then((response) => {
-      setFoundState(true);
-      setJobList(processJobListResponse(response.data));
+      if (response.data) {
+        setJobList(processJobListResponse(response.data));
+      } else setJobList([]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -104,7 +104,7 @@ const AllJobPage = () => {
           />
         )}
         <Box gridArea="jobCards" gap="15px">
-          {isFound ? (
+          {joblist.length ? (
             joblist.map((jobRow) => {
               return (
                 <Box
@@ -129,7 +129,7 @@ const AllJobPage = () => {
               );
             })
           ) : (
-            <Text>Job not found! Try "Android"</Text>
+            <Text size="16">Job not found! Try another keyword...</Text>
           )}
         </Box>
       </Grid>

@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Heading } from "grommet";
+import { Card, CardBody, CardHeader, Heading, Text } from "grommet";
 import React from "react";
 import SimpleJobCard from "../SimpleJobCard/SimpleJobCard";
 
@@ -17,17 +17,21 @@ const JobList = ({ joblist }) => {
         </Heading>
       </CardHeader>
       <CardBody margin={{ vertical: "medium" }} direction="column" gap="30px">
-        {joblist.map((job) => (
-          <SimpleJobCard
-            key={job.id}
-            ownerid={job.ownerId}
-            jobid={job.id}
-            name={job.name}
-            description={job.description}
-            interviewdescription={job.interviewDescription}
-            salary={job.salary}
-          />
-        ))}
+        {joblist ? (
+          joblist.map((job) => (
+            <SimpleJobCard
+              key={job.id}
+              ownerid={job.ownerId}
+              jobid={job.id}
+              name={job.name}
+              description={job.description}
+              interviewdescription={job.interviewDescription}
+              salary={job.salary}
+            />
+          ))
+        ) : (
+          <Text>No available jobs, try create one!</Text>
+        )}
       </CardBody>
     </Card>
   );

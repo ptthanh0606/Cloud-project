@@ -46,7 +46,7 @@ const ManageJobPage = () => {
         >
           <FormPreviousLink color="brand" className="back-icon" />
           <Text size="14px" weight="bold" color="brand">
-            Find another job
+            View all jobs
           </Text>
         </Box>
       </Box>

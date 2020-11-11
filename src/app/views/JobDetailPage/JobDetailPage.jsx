@@ -19,7 +19,6 @@ const JobDetailPage = () => {
   useEffect(() => {
     getJobDetail(id).then((response) => {
       setJobDetail(response.data[0]);
-      console.log(response.data[0]);
       getOwnerDetail(response.data[0].ownerId).then((ownerList) => {
         setOwnerDetail(ownerList.data[0]);
       });
@@ -45,7 +44,7 @@ const JobDetailPage = () => {
         </Box>
       </Box>
       {jobDetail && (
-        <JobDetailCard jobDetail={jobDetail} ownername={ownerDetail.organizationName} />
+        <JobDetailCard jobDetail={jobDetail} ownerdetail={ownerDetail} />
       )}
     </Box>
   );

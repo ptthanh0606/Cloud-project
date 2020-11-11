@@ -15,9 +15,8 @@ export const getUserObj = () => {
   return new Promise((resolve, reject) => {
     // let accessToken = Cookies.get("BREAER_ACCESS_TOKEN");
     Axios.get(
-      `http://localhost:8080/prc391/api/users/user?email=hellopt1@gmail.com`
+      `http://18.141.58.245:8080/prc391/api/users/user?email=helloptadmin@gmail.com`
     ).then((response) => {
-      console.log(response.data.data[0]);
       resolve(response.data.data[0]);
     });
   });

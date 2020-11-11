@@ -24,8 +24,7 @@ const LoginPage = () => {
     // await sendLoginIDToken(res.tokenObj.id_token);
     try {
       const currentLoggedUserObject = await getUserObj();
-      setIsAdminState(currentLoggedUserObject.roleId === 1); // Set admin state
-      // setIsAdminState(currentLoggedUserObject.roleId !== 1); // Set user state
+      setIsAdminState(currentLoggedUserObject.roleId === 2); // Set admin state
       setLoggedUserObject(currentLoggedUserObject);
     } catch (error) {}
 
@@ -50,10 +49,7 @@ const LoginPage = () => {
             JRP
           </Heading>
         </Box>
-        <Image
-          fit="cover"
-          src="https://i.imgur.com/VZuP4I5.png"
-        />
+        <Image fit="cover" src="https://i.imgur.com/VZuP4I5.png" />
       </Box>
       <Box
         pad={{ horizontal: "large", vertical: "large" }}

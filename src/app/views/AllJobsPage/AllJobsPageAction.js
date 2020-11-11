@@ -3,7 +3,7 @@ import Axios from "axios";
 // Get all jobs
 export const getPreviewJob = () => {
   return new Promise((resolve, reject) => {
-    Axios.get("http://localhost:8080/prc391/api/jobs/search").then(
+    Axios.get("http://18.141.58.245:8080/prc391/api/jobs/search").then(
       (response) => {
         resolve(response.data);
       }
@@ -15,7 +15,7 @@ export const getPreviewJob = () => {
 export const getSearchJobResult = (searchValue) => {
   return new Promise((resolve, reject) => {
     Axios.get(
-      `http://localhost:8080/prc391/api/jobs/search?searchValue=${searchValue}`
+      `http://18.141.58.245:8080/prc391/api/jobs/search?searchValue=${searchValue}`
     )
       .then((response) => {
         resolve(response.data);
