@@ -9,8 +9,8 @@ import {
   Button,
 } from "grommet";
 import React, { useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { UserListAtom } from "../../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserListAtom, UserObjAtom } from "../../atoms";
 import "./UserUpdateForm.scss";
 import { getAllUsers, updateUserInfo } from "./UserUpdateFormActions";
 
@@ -27,6 +27,7 @@ const UserUpdateForm = ({
   handleUpdateConfirm,
 }) => {
   const setUserListAtom = useSetRecoilState(UserListAtom);
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
   const [orgName, setOrgName] = useState(organizationname);
   const [contactNumber, setContactNumber] = useState(phonenumber);
   const [addressState, setAddress] = useState(address);
@@ -51,7 +52,11 @@ const UserUpdateForm = ({
       .then(() => {
         alert("update completed!");
         getAllUsers().then((response) => {
-          setUserListAtom(response.data);
+          setUserListAtom(
+            response.data.filter((user) => {
+              return user.id !== currentLoggedUserObject.id;
+            })
+          );
         });
         handleUpdateConfirm();
       })

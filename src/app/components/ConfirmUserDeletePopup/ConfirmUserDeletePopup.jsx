@@ -1,8 +1,8 @@
 import { Box, Button } from "grommet";
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { useSetRecoilState } from "recoil";
-import { UserListAtom } from "../../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserListAtom, UserObjAtom } from "../../atoms";
 import "./ConfirmUserDeletePopup.scss";
 import {
   deleteSelectedUser,
@@ -15,13 +15,17 @@ const ConfirmJobDeletePopup = ({
   handleRemovalJobProp,
 }) => {
   const setUserListState = useSetRecoilState(UserListAtom);
-
+  const currentLoggedUserObject = useRecoilValue(UserObjAtom);
   const handleDeleteJob = () => {
     deleteSelectedUser(userid)
       .then(() => {
         handleRemovalJobProp();
         getAllUsers().then((response) => {
-          setUserListState(response.data);
+          setUserListState(
+            response.data.filter((user) => {
+              return user.id !== currentLoggedUserObject.id;
+            })
+          );
         });
       })
       .catch((err) => {
